@@ -1,0 +1,100 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2026-06-25T05:05:18.878Z",
+    "end": "2026-06-25T05:05:30.954Z",
+    "duration": 12076,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "9c6c9842-ac75-4a05-b675-b6b3bbdd22eb",
+      "title": "",
+      "fullFile": "F:\\BOOTCAMP QA\\HOMEWORK WEB UI SESI 9\\test\\test-sauce.js",
+      "file": "\\test\\test-sauce.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "07af2e12-848e-4f7c-ac33-f6ea1e167445",
+          "title": "SauceDemo Automation Test",
+          "fullFile": "F:\\BOOTCAMP QA\\HOMEWORK WEB UI SESI 9\\test\\test-sauce.js",
+          "file": "\\test\\test-sauce.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Success Login dan Sort Product A-Z",
+              "fullTitle": "SauceDemo Automation Test Success Login dan Sort Product A-Z",
+              "timedOut": false,
+              "duration": 12027,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "let options = new chrome.Options();\ndriver = await new Builder()\n    .forBrowser('chrome').build();\nawait driver.get('https://www.saucedemo.com');\nconst title = await driver.getTitle();\nassert.strictEqual(title, 'Swag Labs');\nlet inputUsername = await driver.findElement(By.css('[data-test=\"username\"]'));\nlet inputPassword = await driver.findElement(By.xpath('//*[@data-test=\"password\"]'));\nlet buttonLogin = await driver.findElement(By.id('login-button'));\nawait inputUsername.sendKeys('standard_user');\nawait inputPassword.sendKeys('secret_sauce');\nawait buttonLogin.click();\nlet buttonCart = await driver.wait(\n    until.elementLocated(\n        By.xpath('//*[@data-test=\"shopping-cart-link\"]')\n    ),\n    10000\n);\nawait driver.wait(\n    until.elementIsVisible(buttonCart),\n    5000,\n    'Shopping cart harus tampil'\n);\nconst isDisplayed = await buttonCart.isDisplayed();\nassert.strictEqual(isDisplayed, true);\nlet textAppLogo = await driver.findElement(By.className('app_logo'));\nlet logoText = await textAppLogo.getText();\nassert.strictEqual(logoText, 'Swag Labs');\nawait driver.sleep(1500);\nlet dropdownSort = await driver.findElement(By.xpath('//select[@data-test=\"product-sort-container\"]'));\nawait dropdownSort.sendKeys('Name (A to Z)');\nlet firstProduct = await driver.findElement(By.className('inventory_item_name'));\nlet firstProductText = await firstProduct.getText();\nassert.strictEqual(\n    firstProductText,\n    'Sauce Labs Backpack'\n);\nawait driver.sleep(2000);\nawait driver.quit();",
+              "err": {},
+              "uuid": "28e6b23e-1e46-4657-83fc-e561072551aa",
+              "parentUUID": "07af2e12-848e-4f7c-ac33-f6ea1e167445",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "28e6b23e-1e46-4657-83fc-e561072551aa"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 12027,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 60000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 60000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "10.8.2"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": null,
+      "version": "6.3.2"
+    }
+  }
+}
