@@ -1,14 +1,14 @@
 {
   "stats": {
     "suites": 1,
-    "tests": 1,
-    "passes": 1,
+    "tests": 2,
+    "passes": 2,
     "pending": 0,
     "failures": 0,
-    "start": "2026-06-25T05:05:18.878Z",
-    "end": "2026-06-25T05:05:30.954Z",
-    "duration": 12076,
-    "testsRegistered": 1,
+    "start": "2026-06-26T19:29:44.274Z",
+    "end": "2026-06-26T19:30:00.757Z",
+    "duration": 16483,
+    "testsRegistered": 2,
     "passPercent": 100,
     "pendingPercent": 0,
     "other": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "9c6c9842-ac75-4a05-b675-b6b3bbdd22eb",
+      "uuid": "0d9ff003-a545-49ba-8099-712fa80f12c3",
       "title": "",
       "fullFile": "F:\\BOOTCAMP QA\\HOMEWORK WEB UI SESI 9\\test\\test-sauce.js",
       "file": "\\test\\test-sauce.js",
@@ -27,40 +27,97 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "07af2e12-848e-4f7c-ac33-f6ea1e167445",
+          "uuid": "657cf168-cf61-4a08-b2b6-09661d10f292",
           "title": "SauceDemo Automation Test",
           "fullFile": "F:\\BOOTCAMP QA\\HOMEWORK WEB UI SESI 9\\test\\test-sauce.js",
           "file": "\\test\\test-sauce.js",
-          "beforeHooks": [],
-          "afterHooks": [],
+          "beforeHooks": [
+            {
+              "title": "\"before all\" hook in \"SauceDemo Automation Test\"",
+              "fullTitle": "SauceDemo Automation Test \"before all\" hook in \"SauceDemo Automation Test\"",
+              "timedOut": false,
+              "duration": 5346,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "console.log('membuka browser sebelum test dijalankan');\ndriver = await new Builder().forBrowser('chrome').build();",
+              "err": {},
+              "uuid": "590c2565-125a-470f-bf93-aefb74bbd8dc",
+              "parentUUID": "657cf168-cf61-4a08-b2b6-09661d10f292",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [
+            {
+              "title": "\"after all\" hook in \"SauceDemo Automation Test\"",
+              "fullTitle": "SauceDemo Automation Test \"after all\" hook in \"SauceDemo Automation Test\"",
+              "timedOut": false,
+              "duration": 537,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "console.log('menutup browser setelah test selesai');\nawait driver.quit();",
+              "err": {},
+              "uuid": "4b2e855f-fbcf-4fb9-8da6-a2e1d57a5ef8",
+              "parentUUID": "657cf168-cf61-4a08-b2b6-09661d10f292",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
           "tests": [
             {
-              "title": "Success Login dan Sort Product A-Z",
-              "fullTitle": "SauceDemo Automation Test Success Login dan Sort Product A-Z",
+              "title": "Success Login",
+              "fullTitle": "SauceDemo Automation Test Success Login",
               "timedOut": false,
-              "duration": 12027,
+              "duration": 6787,
               "state": "passed",
               "speed": "slow",
               "pass": true,
               "fail": false,
               "pending": false,
               "context": null,
-              "code": "let options = new chrome.Options();\ndriver = await new Builder()\n    .forBrowser('chrome').build();\nawait driver.get('https://www.saucedemo.com');\nconst title = await driver.getTitle();\nassert.strictEqual(title, 'Swag Labs');\nlet inputUsername = await driver.findElement(By.css('[data-test=\"username\"]'));\nlet inputPassword = await driver.findElement(By.xpath('//*[@data-test=\"password\"]'));\nlet buttonLogin = await driver.findElement(By.id('login-button'));\nawait inputUsername.sendKeys('standard_user');\nawait inputPassword.sendKeys('secret_sauce');\nawait buttonLogin.click();\nlet buttonCart = await driver.wait(\n    until.elementLocated(\n        By.xpath('//*[@data-test=\"shopping-cart-link\"]')\n    ),\n    10000\n);\nawait driver.wait(\n    until.elementIsVisible(buttonCart),\n    5000,\n    'Shopping cart harus tampil'\n);\nconst isDisplayed = await buttonCart.isDisplayed();\nassert.strictEqual(isDisplayed, true);\nlet textAppLogo = await driver.findElement(By.className('app_logo'));\nlet logoText = await textAppLogo.getText();\nassert.strictEqual(logoText, 'Swag Labs');\nawait driver.sleep(1500);\nlet dropdownSort = await driver.findElement(By.xpath('//select[@data-test=\"product-sort-container\"]'));\nawait dropdownSort.sendKeys('Name (A to Z)');\nlet firstProduct = await driver.findElement(By.className('inventory_item_name'));\nlet firstProductText = await firstProduct.getText();\nassert.strictEqual(\n    firstProductText,\n    'Sauce Labs Backpack'\n);\nawait driver.sleep(2000);\nawait driver.quit();",
+              "code": "await driver.get('https://www.saucedemo.com');\nconst title = await driver.getTitle();\nassert.strictEqual(title, 'Swag Labs');\nlet inputUsername = await driver.findElement(By.css('[data-test=\"username\"]'));\nlet inputPassword = await driver.findElement(By.xpath('//*[@data-test=\"password\"]'));\nlet buttonLogin = await driver.findElement(By.id('login-button'));\nawait inputUsername.sendKeys('standard_user');\nawait inputPassword.sendKeys('secret_sauce');\nawait buttonLogin.click();\nlet buttonCart = await driver.wait(\n    until.elementLocated(\n        By.xpath('//*[@data-test=\"shopping-cart-link\"]')\n    ),\n    10000\n);\nawait driver.wait(\n    until.elementIsVisible(buttonCart),\n    5000,\n    'Shopping cart harus tampil'\n);\nconst isDisplayed = await buttonCart.isDisplayed();\nassert.strictEqual(isDisplayed, true);\nlet textAppLogo = await driver.findElement(By.className('app_logo'));\nlet logoText = await textAppLogo.getText();\nassert.strictEqual(logoText, 'Swag Labs');\nawait driver.sleep(2000);",
               "err": {},
-              "uuid": "28e6b23e-1e46-4657-83fc-e561072551aa",
-              "parentUUID": "07af2e12-848e-4f7c-ac33-f6ea1e167445",
+              "uuid": "162c2aa4-55bd-40c2-b062-2c0a995c7ca1",
+              "parentUUID": "657cf168-cf61-4a08-b2b6-09661d10f292",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Sort Product A-Z",
+              "fullTitle": "SauceDemo Automation Test Sort Product A-Z",
+              "timedOut": false,
+              "duration": 3570,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await driver.get('https://www.saucedemo.com');\nlet inputUsername = await driver.findElement(By.css('[data-test=\"username\"]'));\nlet inputPassword = await driver.findElement(By.xpath('//*[@data-test=\"password\"]'));\nlet buttonLogin = await driver.findElement(By.id('login-button'));\nawait inputUsername.sendKeys('standard_user');\nawait inputPassword.sendKeys('secret_sauce');\nawait buttonLogin.click();\nawait driver.wait(until.elementLocated(\nBy.xpath('//select[@data-test=\"product-sort-container\"]')),\n 10000\n);\nlet dropdownSort = await driver.findElement(\n    By.xpath('//select[@data-test=\"product-sort-container\"]')\n);\nawait dropdownSort.sendKeys('Name (A to Z)');\nlet firstProduct = await driver.findElement(\n    By.className('inventory_item_name')\n);\nlet firstProductText = await firstProduct.getText();\nassert.strictEqual(\n    firstProductText,\n    'Sauce Labs Backpack'\n);\nawait driver.sleep(2000);",
+              "err": {},
+              "uuid": "01726bb2-f45a-48fd-a78a-a869df007902",
+              "parentUUID": "657cf168-cf61-4a08-b2b6-09661d10f292",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "28e6b23e-1e46-4657-83fc-e561072551aa"
+            "162c2aa4-55bd-40c2-b062-2c0a995c7ca1",
+            "01726bb2-f45a-48fd-a78a-a869df007902"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 12027,
+          "duration": 10357,
           "root": false,
           "rootEmpty": false,
           "_timeout": 60000

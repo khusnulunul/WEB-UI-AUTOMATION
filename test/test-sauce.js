@@ -5,12 +5,17 @@ const chrome = require('selenium-webdriver/chrome');
 describe('SauceDemo Automation Test', function () {
     let driver;
 
-    it('Success Login dan Sort Product A-Z', async function () {
-        let options = new chrome.Options();
+    before(async function () {
+        console.log('membuka browser sebelum test dijalankan');
+        driver = await new Builder().forBrowser('chrome').build();
+    });
 
-        driver = await new Builder()
-            .forBrowser('chrome').build();
+    after(async function () {
+        console.log('menutup browser setelah test selesai');
+        await driver.quit();
+    });
 
+    it('Success Login', async function () {
         await driver.get('https://www.saucedemo.com');
 
         const title = await driver.getTitle();
@@ -19,6 +24,7 @@ describe('SauceDemo Automation Test', function () {
         let inputUsername = await driver.findElement(By.css('[data-test="username"]'));
         let inputPassword = await driver.findElement(By.xpath('//*[@data-test="password"]'));
         let buttonLogin = await driver.findElement(By.id('login-button'));
+
         await inputUsername.sendKeys('standard_user');
         await inputPassword.sendKeys('secret_sauce');
         await buttonLogin.click();
@@ -40,16 +46,39 @@ describe('SauceDemo Automation Test', function () {
         assert.strictEqual(isDisplayed, true);
 
         let textAppLogo = await driver.findElement(By.className('app_logo'));
-
         let logoText = await textAppLogo.getText();
 
         assert.strictEqual(logoText, 'Swag Labs');
 
-        await driver.sleep(1500);
+        await driver.sleep(2000);
+    });
 
-        let dropdownSort = await driver.findElement(By.xpath('//select[@data-test="product-sort-container"]'));
+    it('Sort Product A-Z', async function () {
+        await driver.get('https://www.saucedemo.com');
+
+        let inputUsername = await driver.findElement(By.css('[data-test="username"]'));
+        let inputPassword = await driver.findElement(By.xpath('//*[@data-test="password"]'));
+        let buttonLogin = await driver.findElement(By.id('login-button'));
+
+        await inputUsername.sendKeys('standard_user');
+        await inputPassword.sendKeys('secret_sauce');
+        await buttonLogin.click();
+
+        await driver.wait(until.elementLocated(
+        By.xpath('//select[@data-test="product-sort-container"]')),
+         10000
+        );
+
+        let dropdownSort = await driver.findElement(
+            By.xpath('//select[@data-test="product-sort-container"]')
+        );
+
         await dropdownSort.sendKeys('Name (A to Z)');
-        let firstProduct = await driver.findElement(By.className('inventory_item_name'));
+
+        let firstProduct = await driver.findElement(
+            By.className('inventory_item_name')
+        );
+
         let firstProductText = await firstProduct.getText();
 
         assert.strictEqual(
@@ -58,7 +87,5 @@ describe('SauceDemo Automation Test', function () {
         );
 
         await driver.sleep(2000);
-
-        await driver.quit();
     });
 });

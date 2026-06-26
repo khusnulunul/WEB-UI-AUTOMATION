@@ -553,16 +553,13 @@ body {
                     <li><span id="toggle-passes" class="toggle-passes">show failures only</span></li>
                 </ul>
                 <ul class="mocha-stats">
-                    <li class="passes">passes: <em>1</em></li>
+                    <li class="passes">passes: <em>2</em></li>
                     <li class="pending">pending: <em>0</em></li>
                     <li class="failures">failures: <em>0</em></li>
-                    <li class="duration">duration: <em>14s</em></li>
+                    <li class="duration">duration: <em>14.7s</em></li>
                 </ul>
             </div>
-            <ul id="report"><li class="suite"><h1>SauceDemo Automation Test</h1><ul><li class="test pass slow"><h2>Success Login dan Sort Product A-Z<span class="duration">14002ms</span></h2><pre><code>async function () {
-        let options = new chrome.Options();
-        driver = await new Builder()
-            .forBrowser(&#x27;chrome&#x27;).build();
+            <ul id="report"><li class="suite"><h1>SauceDemo Automation Test</h1><ul><li class="test pass slow"><h2>Success Login<span class="duration">6738ms</span></h2><pre><code>async function () {
         await driver.get(&#x27;https://www.saucedemo.com&#x27;);
         const title = await driver.getTitle();
         assert.strictEqual(title, &#x27;Swag Labs&#x27;);
@@ -588,17 +585,32 @@ body {
         let textAppLogo = await driver.findElement(By.className(&#x27;app_logo&#x27;));
         let logoText = await textAppLogo.getText();
         assert.strictEqual(logoText, &#x27;Swag Labs&#x27;);
-        await driver.sleep(1500);
-        let dropdownSort = await driver.findElement(By.xpath(&#x27;//select[@data-test=&#x22;product-sort-container&#x22;]&#x27;));
+        await driver.sleep(2000);
+    }</code></pre></li><li class="test pass slow"><h2>Sort Product A-Z<span class="duration">3625ms</span></h2><pre><code>async function () {
+        await driver.get(&#x27;https://www.saucedemo.com&#x27;);
+        let inputUsername = await driver.findElement(By.css(&#x27;[data-test=&#x22;username&#x22;]&#x27;));
+        let inputPassword = await driver.findElement(By.xpath(&#x27;//*[@data-test=&#x22;password&#x22;]&#x27;));
+        let buttonLogin = await driver.findElement(By.id(&#x27;login-button&#x27;));
+        await inputUsername.sendKeys(&#x27;standard_user&#x27;);
+        await inputPassword.sendKeys(&#x27;secret_sauce&#x27;);
+        await buttonLogin.click();
+        await driver.wait(until.elementLocated(
+        By.xpath(&#x27;//select[@data-test=&#x22;product-sort-container&#x22;]&#x27;)),
+         10000
+        );
+        let dropdownSort = await driver.findElement(
+            By.xpath(&#x27;//select[@data-test=&#x22;product-sort-container&#x22;]&#x27;)
+        );
         await dropdownSort.sendKeys(&#x27;Name (A to Z)&#x27;);
-        let firstProduct = await driver.findElement(By.className(&#x27;inventory_item_name&#x27;));
+        let firstProduct = await driver.findElement(
+            By.className(&#x27;inventory_item_name&#x27;)
+        );
         let firstProductText = await firstProduct.getText();
         assert.strictEqual(
             firstProductText,
             &#x27;Sauce Labs Backpack&#x27;
         );
         await driver.sleep(2000);
-        await driver.quit();
     }</code></pre></li></ul></li></ul>
         </div>
         <script>
